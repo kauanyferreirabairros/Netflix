@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Netflix – Quem está assistindo?</title>
+  <link rel="stylesheet" href="profiles.css"/>
+</head>
+<body>
+
+  <header class="header">
+    <div class="logo">NETFLIX</div>
+    <div class="header-actions">
+      <button class="icon-btn" title="Notificações">
+        <svg viewBox="0 0 24 24" fill="white" width="22" height="22"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
+      </button>
+      <div class="avatar-small">
+        <img src="https://picsum.photos/seed/user99/40/40" alt="user"/>
+        <svg class="chevron" viewBox="0 0 24 24" fill="white" width="14" height="14"><path d="M7 10l5 5 5-5z"/></svg>
+      </div>
+    </div>
+  </header>
+
+=  <main class="main">
+    <div class="profiles-container">
+      <h1 class="title">Quem está assistindo?</h1>
+
+      <div class="profiles-grid" id="profilesGrid">
+
+        <div class="profile-item" onclick="selectProfile(this, 'profiles.html')">
+          <div class="avatar-wrap">
+            <img src="https://picsum.photos/seed/heitor/200/200" alt="Heitor" class="avatar"/>
+            <div class="avatar-overlay">
+              <svg viewBox="0 0 24 24" fill="white" width="28" height="28"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+            </div>
+          </div>
+          <span class="profile-name">Personalise</span>
+        </div>
+
+        <div class="profile-item" onclick="selectProfile(this, 'profiles.html')">
+          <div class="avatar-wrap">
+            <img src="https://picsum.photos/seed/guto/200/200" alt="Personalise" class="avatar"/>
+            <div class="avatar-overlay">
+              <svg viewBox="0 0 24 24" fill="white" width="28" height="28"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+            </div>
+          </div>
+          <span class="profile-name">Personalise</span>
+        </div>
+
+        <div class="profile-item" onclick="selectProfile(this, 'profiles.html')">
+          <div class="avatar-wrap">
+            <img src="https://picsum.photos/seed/pais/200/200" alt="Pais" class="avatar"/>
+            <div class="avatar-overlay">
+              <svg viewBox="0 0 24 24" fill="white" width="28" height="28"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+            </div>
+          </div>
+          <span class="profile-name">Personalise</span>
+        </div>
+
+        <div class="profile-item" onclick="selectProfile(this, 'profiles.html')">
+          <div class="avatar-wrap">
+            <img src="https://picsum.photos/seed/clarinha/200/200" alt="Clarinha" class="avatar"/>
+            <div class="avatar-overlay">
+              <svg viewBox="0 0 24 24" fill="white" width="28" height="28"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+            </div>
+          </div>
+          <span class="profile-name">Personalise</span>
+        </div>
+
+        <div class="profile-item add-profile" onclick="goToEditProfiles()">
+          <div class="avatar-wrap add-wrap">
+            <svg viewBox="0 0 24 24" fill="white" width="50" height="50"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
+          </div>
+          <span class="profile-name">Adicionar perfil</span>
+        </div>
+
+      </div>
+
+      <button class="btn-manage" onclick="goToEditProfiles()">GERENCIAR PERFIS</button>
+    </div>
+  </main>
+
+  <script>
+    function selectProfile(el, dest) {
+      el.classList.add('selecting');
+      setTimeout(() => { window.location.href = dest; }, 700);
+    }
+
+    function goToEditProfiles() {
+      window.location.href = 'edit-profile.html';
+    }
+  </script>
+</body>
+</html>

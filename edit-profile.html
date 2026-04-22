@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Netflix – Editar Perfil</title>
+  <link rel="stylesheet" href="edit-profile.css"/>
+</head>
+<body>
+
+  <header class="header">
+    <div class="logo">NETFLIX</div>
+  </header>
+
+  <div class="modal-backdrop" id="avatarModal">
+    <div class="modal">
+      <div class="modal-header">
+        <button class="modal-back" onclick="closeAvatarPicker()">
+          <svg viewBox="0 0 24 24" fill="white" width="22" height="22"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+          Voltar
+        </button>
+        <div>
+          <h2 class="modal-title">Escolha um ícone de perfil</h2>
+          <p class="modal-subtitle">Filmes e Séries</p>
+        </div>
+      </div>
+
+      <div class="modal-grid" id="avatarGrid">
+      </div>
+    </div>
+  </div>
+
+  <main class="main">
+    <div class="edit-container">
+      <div class="edit-header">
+        <h1 class="page-title">Editar Perfil</h1>
+        <div class="divider-line"></div>
+      </div>
+
+      <div class="edit-body">
+        <div class="avatar-section">
+          <div class="avatar-frame" id="avatarFrame" onclick="openAvatarPicker()">
+            <img id="currentAvatar" src="https://picsum.photos/seed/heitor/200/200" alt="Avatar"/>
+            <div class="avatar-edit-overlay">
+              <svg viewBox="0 0 24 24" fill="white" width="28" height="28"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+              <span>ALTERAR</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <div class="field-group">
+            <input type="text" class="field-input" id="profileName" value="Heitor" maxlength="50"/>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label">Idioma:</label>
+            <select class="field-select">
+              <option>Português</option>
+              <option>English</option>
+              <option>Español</option>
+              <option>Français</option>
+              <option>Deutsch</option>
+            </select>
+          </div>
+
+          <div class="settings-section">
+            <label class="settings-title">CLASSIFICAÇÃO INDICATIVA DE CONTEÚDO</label>
+            <p class="settings-desc">Mostre títulos de todas as classificações indicativas neste perfil.</p>
+            <div class="rating-group">
+              <label class="rating-option">
+                <input type="radio" name="rating" value="all" class="rating-radio" checked/>
+                <span class="rating-custom"></span>
+                Todos os títulos
+              </label>
+              <label class="rating-option">
+                <input type="radio" name="rating" value="teen" class="rating-radio"/>
+                <span class="rating-custom"></span>
+                Adolescentes (14+)
+              </label>
+              <label class="rating-option">
+                <input type="radio" name="rating" value="children" class="rating-radio"/>
+                <span class="rating-custom"></span>
+                Crianças (7+)
+              </label>
+            </div>
+          </div>
+
+          <div class="settings-section">
+            <label class="settings-title">REPRODUÇÃO AUTOMÁTICA</label>
+            <label class="toggle-row">
+              <div class="toggle-wrap">
+                <input type="checkbox" id="autoplayNext" class="toggle-input" checked/>
+                <span class="toggle-slider"></span>
+              </div>
+              <span class="toggle-label">Reproduzir automaticamente o próximo episódio de uma série.</span>
+            </label>
+            <label class="toggle-row">
+              <div class="toggle-wrap">
+                <input type="checkbox" id="autoplayPrev" class="toggle-input"/>
+                <span class="toggle-slider"></span>
+              </div>
+              <span class="toggle-label">Reproduzir automaticamente visualizações ao navegar.</span>
+            </label>
+          </div>
+
+         
+          <div class="settings-section">
+            <label class="settings-title">BANNER DO PERFIL</label>
+            <p class="settings-desc">Escolha a imagem de destaque do seu perfil.</p>
+            <div class="banners-row" id="bannersRow">
+           
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="actions-row">
+        <button class="btn-save" onclick="saveProfile()">SALVAR</button>
+        <button class="btn-cancel" onclick="window.location.href='profiles.html'">CANCELAR</button>
+        <button class="btn-delete">EXCLUIR PERFIL</button>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    
+    const avatars = [
+      { seed: 'av1',  color: '#e50914' },
+      { seed: 'av2',  color: '#0071eb' },
+      { seed: 'av3',  color: '#46d369' },
+      { seed: 'av4',  color: '#e2a32a' },
+      { seed: 'av5',  color: '#9b59b6' },
+      { seed: 'av6',  color: '#e74c3c' },
+      { seed: 'av7',  color: '#1abc9c' },
+      { seed: 'av8',  color: '#3498db' },
+      { seed: 'av9',  color: '#f39c12' },
+      { seed: 'av10', color: '#27ae60' },
+      { seed: 'av11', color: '#e91e63' },
+      { seed: 'av12', color: '#00bcd4' },
+      { seed: 'av13', color: '#ff5722' },
+      { seed: 'av14', color: '#607d8b' },
+      { seed: 'av15', color: '#795548' },
+      { seed: 'av16', color: '#4caf50' },
+    ];
+
+    const banners = [
+      { seed: 'banner1', label: 'Ação' },
+      { seed: 'banner2', label: 'Drama' },
+      { seed: 'banner3', label: 'Comédia' },
+      { seed: 'banner4', label: 'Terror' },
+      { seed: 'banner5', label: 'Sci-Fi' },
+      { seed: 'banner6', label: 'Romance' },
+    ];
+
+    let selectedAvatar = 'https://picsum.photos/seed/heitor/200/200';
+    let selectedBanner = 0;
+
+
+    function initAvatarGrid() {
+      const grid = document.getElementById('avatarGrid');
+      avatars.forEach((av, i) => {
+        const el = document.createElement('div');
+        el.className = 'av-option';
+        el.style.background = av.color;
+        el.innerHTML = `<img src="https://picsum.photos/seed/${av.seed}/120/120" alt="avatar ${i}"/>`;
+        el.onclick = () => pickAvatar(`https://picsum.photos/seed/${av.seed}/120/120`, el);
+        grid.appendChild(el);
+      });
+    }
+
+    function initBanners() {
+      const row = document.getElementById('bannersRow');
+      banners.forEach((b, i) => {
+        const el = document.createElement('div');
+        el.className = 'banner-option' + (i === 0 ? ' selected' : '');
+        el.innerHTML = `
+          <img src="https://picsum.photos/seed/${b.seed}/160/90" alt="${b.label}"/>
+          <span>${b.label}</span>
+        `;
+        el.onclick = () => pickBanner(i, el);
+        row.appendChild(el);
+      });
+    }
+
+    
+    function openAvatarPicker() {
+      document.getElementById('avatarModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeAvatarPicker() {
+      document.getElementById('avatarModal').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function pickAvatar(url, el) {
+      selectedAvatar = url;
+      document.getElementById('currentAvatar').src = url;
+      closeAvatarPicker();
+    }
+
+    function pickBanner(idx, el) {
+      selectedBanner = idx;
+      document.querySelectorAll('.banner-option').forEach(b => b.classList.remove('selected'));
+      el.classList.add('selected');
+    }
+
+    function saveProfile() {
+      const name = document.getElementById('profileName').value;
+      alert(`Perfil "${name}" salvo com sucesso!`);
+      window.location.href = 'profiles.html';
+    }
+
+   
+    initAvatarGrid();
+    initBanners();
+
+    document.getElementById('avatarModal').addEventListener('click', function(e) {
+      if (e.target === this) closeAvatarPicker();
+    });
+  </script>
+</body>
+</html>

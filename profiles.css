@@ -1,0 +1,233 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --red:       #e50914;
+  --bg:        #141414;
+  --text:      #fff;
+  --text-dim:  #808080;
+  --border:    #333;
+  --hover-border: #e5e5e5;
+  --font: 'Barlow', 'Helvetica Neue', Arial, sans-serif;
+  --avatar-size: 140px;
+}
+
+html, body {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+}
+
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 48px;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.logo {
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--red);
+  letter-spacing: -1px;
+  font-style: italic;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+  padding: 4px;
+}
+.icon-btn:hover { opacity: 1; }
+
+.avatar-small {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.avatar-small img {
+  width: 34px;
+  height: 34px;
+  border-radius: 4px;
+  object-fit: cover;
+}
+
+
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 80px);
+  padding: 20px;
+}
+
+
+.profiles-container {
+  text-align: center;
+  animation: fadeIn 0.5s ease both;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.title {
+  font-size: 3.2rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin-bottom: 48px;
+  color: var(--text);
+}
+
+
+.profiles-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 52px;
+}
+
+
+.profile-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.avatar-wrap {
+  position: relative;
+  width: var(--avatar-size);
+  height: var(--avatar-size);
+  border-radius: 4px;
+  overflow: hidden;
+  border: 3px solid transparent;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s, filter 0.3s;
+}
+
+.avatar-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.profile-item:hover .avatar-wrap {
+  border-color: var(--hover-border);
+}
+
+.profile-item:hover .avatar {
+  transform: scale(1.05);
+  filter: brightness(0.7);
+}
+
+.profile-item:hover .avatar-overlay {
+  opacity: 1;
+}
+
+.profile-item:hover .profile-name {
+  color: var(--text);
+}
+
+.profile-item.selecting .avatar-wrap {
+  border-color: var(--text);
+  animation: pulse 0.35s ease infinite alternate;
+}
+
+@keyframes pulse {
+  from { transform: scale(1); }
+  to   { transform: scale(1.04); }
+}
+
+
+.profile-name {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-dim);
+  letter-spacing: 0.3px;
+  transition: color 0.2s;
+}
+
+
+.add-wrap {
+  background: #1a1a1a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid transparent;
+}
+
+.add-profile:hover .add-wrap {
+  border-color: var(--hover-border);
+  background: #2a2a2a;
+}
+
+
+.btn-manage {
+  background: transparent;
+  border: 1px solid var(--text-dim);
+  color: var(--text-dim);
+  padding: 14px 38px;
+  font-family: var(--font);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+
+.btn-manage:hover {
+  color: var(--text);
+  border-color: var(--text);
+  background: rgba(255,255,255,0.08);
+}
+
+
+@media (max-width: 700px) {
+  :root { --avatar-size: 100px; }
+  .title { font-size: 2rem; }
+  .header { padding: 16px 20px; }
+}
+
+@media (max-width: 480px) {
+  :root { --avatar-size: 80px; }
+  .title { font-size: 1.5rem; margin-bottom: 30px; }
+  .profiles-grid { gap: 14px; }
+}
